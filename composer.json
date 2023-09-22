@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.0",
         "php-http/socket-client": "*",
         "php-http/client-common": "*",
         "php-http/message": "*",
@@ -29,11 +29,6 @@
     "autoload": {
         "psr-4": {
             "Smalot\\Cups\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Smalot\\Cups\\Tests\\Units\\": "tests/"
         }
     }
 }

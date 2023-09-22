@@ -8,10 +8,11 @@ use Http\Client\Common\Plugin\ContentLengthPlugin;
 use Http\Client\Common\Plugin\DecoderPlugin;
 use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
 use Http\Client\Socket\Client as SocketHttpClient;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Smalot\Cups\CupsException;
 
 /**
@@ -19,7 +20,7 @@ use Smalot\Cups\CupsException;
  *
  * @package Smalot\Cups\Transport
  */
-class Client implements HttpClient
+class Client implements ClientInterface
 {
 
     const SOCKET_URL = 'unix:///var/run/cups/cups.sock';
@@ -29,7 +30,7 @@ class Client implements HttpClient
     const AUTHTYPE_DIGEST = 'digest';
 
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
     protected $httpClient;
 
@@ -74,7 +75,7 @@ class Client implements HttpClient
         $host = preg_match(
           '/unix:\/\//',
           $socketClientOptions['remote_socket']
-        ) ? 'http://localhost' : $socketClientOptions['remote_socket'];
+        ) ? 'https://localhost' : $socketClientOptions['remote_socket'];
         $this->httpClient = new PluginClient(
           $socketClient, [
             new ErrorPlugin(),
@@ -116,7 +117,7 @@ class Client implements HttpClient
     /**
      * (@inheritdoc}
      */
-    public function sendRequest(RequestInterface $request)
+    public function sendRequest(RequestInterface $request): ResponseInterface
     {
         if ($this->username || $this->password) {
             switch ($this->authType) {
