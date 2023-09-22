@@ -14,6 +14,7 @@
         "php-http/socket-client": "*",
         "php-http/client-common": "*",
         "php-http/message": "*",
+        "php-http/message-factory": "*",
         "guzzlehttp/psr7": "*",
         "symfony/yaml": "*"
     },
