@@ -75,7 +75,7 @@ class Client implements ClientInterface
         $host = preg_match(
           '/unix:\/\//',
           $socketClientOptions['remote_socket']
-        ) ? 'https://localhost' : $socketClientOptions['remote_socket'];
+        ) ? 'http://localhost' : $socketClientOptions['remote_socket'];
         $this->httpClient = new PluginClient(
           $socketClient, [
             new ErrorPlugin(),
